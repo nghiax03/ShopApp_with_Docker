@@ -1,0 +1,9 @@
+INDEX VERSION 1.132
+D:\ShopApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1690657338.index
+\xshop\FASHIONSSS\src\main\java
+D:\ShopApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3466394309.index
+\FASHIONSSS\src\main\java
+D:\ShopApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2266522556.index
+\xshop\FASHIONSSS\src\main\java
+D:\ShopApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2115830511.index
+\FASHIONSSS\src\main\java

@@ -1,0 +1,10 @@
+package com.project.shopapp.dtos;
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class OrderWithDetailsDTO {
+
+}
