@@ -6,8 +6,13 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="getAll"/>
+		<item key="selection" value="upload"/>
 		<list key="findhistory">
+			<item value="upload"/>
+			<item value="@GetMapping(&quot;/{id}&quot;)"/>
+			<item value="logback"/>
+			<item value="logbac"/>
+			<item value="redis"/>
 			<item value="getall"/>
 			<item value="orders"/>
 			<item value="{id}"/>
@@ -18,11 +23,6 @@
 			<item value="img"/>
 			<item value="getproduct"/>
 			<item value="getProducts"/>
-			<item value="connec"/>
-			<item value="connecter"/>
-			<item value="MediaType"/>
-			<item value="ROLE_"/>
-			<item value="@GetMapping"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

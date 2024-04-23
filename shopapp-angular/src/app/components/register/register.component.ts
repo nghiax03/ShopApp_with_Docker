@@ -77,9 +77,6 @@ export class RegisterComponent {
         }
     })   
   }
-  login(){  
-    this.router.navigate(["/login"]);
-  }
   togglePassword() {
     this.showPassword = !this.showPassword;
   }

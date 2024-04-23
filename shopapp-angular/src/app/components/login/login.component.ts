@@ -32,7 +32,12 @@ export class LoginComponent implements OnInit{
   password: string = '11223344';
 
   */
-  phoneNumber: string = '0987660066';
+ /*
+ phone: 123456
+ pass: 12345
+ role: admin
+ */
+  phoneNumber: string = '12345';
   password: string = '12345';
   showPassword: boolean = false;
 
