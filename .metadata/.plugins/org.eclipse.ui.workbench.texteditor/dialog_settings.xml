@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="upload"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="acto"/>
 			<item value="upload"/>
 			<item value="@GetMapping(&quot;/{id}&quot;)"/>
 			<item value="logback"/>
@@ -22,7 +23,6 @@
 			<item value="getmapp"/>
 			<item value="img"/>
 			<item value="getproduct"/>
-			<item value="getProducts"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
