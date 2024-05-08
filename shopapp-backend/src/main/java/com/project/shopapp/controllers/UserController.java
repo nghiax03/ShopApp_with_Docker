@@ -4,6 +4,7 @@ import com.project.shopapp.models.Token;
 import com.project.shopapp.models.User;
 import com.project.shopapp.responses.LoginResponse;
 import com.project.shopapp.responses.RegisterResponse;
+import com.project.shopapp.responses.UserListResponse;
 import com.project.shopapp.responses.UserResponse;
 import com.project.shopapp.services.token.ITokenService;
 import com.project.shopapp.services.user.IUserService;
@@ -14,6 +15,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,8 +26,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import com.project.shopapp.dtos.*;
+import com.project.shopapp.exceptions.DataNotFoundException;
+import com.project.shopapp.exceptions.InvalidPasswordException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
@@ -32,6 +43,31 @@ public class UserController {
     private final LocalizationUtils localizationUtils;
     private final ITokenService tokenService;
 
+    @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> getAllUsers(
+    		@RequestParam(defaultValue = "", required = false) String keyword,
+    		@RequestParam(defaultValue = "0") int page,
+    		@RequestParam(defaultValue = "10") int limit
+    		){
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, limit, Sort.by("id").ascending());
+    		Page<UserResponse> userPage = userService.findAll(keyword, pageRequest)
+    				.map(UserResponse::fromUser);
+    		
+        	int totalPages = userPage.getTotalPages();
+        	List<UserResponse> userResponses = userPage.getContent();
+        	
+        	return ResponseEntity.ok(UserListResponse.builder()
+        			.users(userResponses)
+        			.totalPages(totalPages)
+        			.build());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+    }
+    
+    
     @PostMapping("/register")
     //can we register an "admin" user ?
     public ResponseEntity<RegisterResponse> createUser(
@@ -162,5 +198,39 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+    
+    
+    @PutMapping("/reset-password/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> resetPassword(@Valid @PathVariable long userId){
+    	try {
+			String newPassword = UUID.randomUUID().toString().substring(0,5);
+			userService.resetPassword(userId, newPassword);
+			return ResponseEntity.ok(newPassword);
+		} catch (InvalidPasswordException e) {
+			return ResponseEntity.badRequest().body("Invalid password");
+		} catch (DataNotFoundException e) {
+			return ResponseEntity.badRequest().body("User not found");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+    }
+   
+    @PutMapping("/block/{userId}/{active}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<String> blockOrEnable(
+    		@Valid @PathVariable long userId,
+    		@Valid @PathVariable int active)
+    {
+    	try {
+			userService.blockOrEnable(userId, active > 0);
+			String message = active > 0 ? "Successfully enable the user" : "Successfully blocked the user.";
+			return ResponseEntity.ok().body(message);
+		}  catch (DataNotFoundException e) {
+			return ResponseEntity.badRequest().body("User not found");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
     }
 }

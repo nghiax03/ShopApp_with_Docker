@@ -3,6 +3,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.project.shopapp.exceptions.InvalidParamException;
 import com.project.shopapp.models.Token;
+import com.project.shopapp.models.User;
 import com.project.shopapp.repositories.TokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -84,11 +85,12 @@ public class JwtTokenUtils {
     public String extractPhoneNumber(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, User userDetails) {
         try {
             String phoneNumber = extractPhoneNumber(token);
             Token existingToken = tokenRepository.findByToken(token);
-            if(existingToken == null || existingToken.isRevoked() == true) {
+            if(existingToken == null || existingToken.isRevoked() == true
+            		|| !userDetails.isActive()) {
                 return false;
             }
             return (phoneNumber.equals(userDetails.getUsername()))
