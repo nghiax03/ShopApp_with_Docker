@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Product } from '../../models/product';
 import { Category } from '../../models/category';
 import { Router } from '@angular/router';
@@ -7,31 +7,47 @@ import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
 import { TokenService } from '../../services/token.service';
 
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    CommonModule,
+    FormsModule
+  ]
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = []; // Dữ liệu động từ categoryService
   selectedCategoryId: number  = 0; // Giá trị category được chọn
   currentPage: number = 0;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 12;
   pages: number[] = [];
   totalPages:number = 0;
   visiblePages: number[] = [];
   keyword:string = "";
+  localStorage?:Storage;
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,    
     private router: Router,
-    private tokenService: TokenService
-    ) {}
+    private tokenService: TokenService,
+    @Inject(DOCUMENT) private document: Document
+    ) {
+      this.localStorage = document.defaultView?.localStorage;
+    }
 
     ngOnInit() {
-      this.currentPage = Number(localStorage.getItem('currentProductPage')) || 0; 
+      this.currentPage = Number(this.localStorage?.getItem('currentProductPage')) || 0; 
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
       this.getCategories(0, 100);
     }
@@ -83,7 +99,7 @@ export class HomeComponent implements OnInit {
     onPageChange(page: number) {
       debugger;
       this.currentPage = page < 0 ? 0 : page;
-      localStorage.setItem('currentProductPage', String(this.currentPage)); 
+      this.localStorage?.setItem('currentProductPage', String(this.currentPage)); 
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
     

@@ -3,12 +3,18 @@ import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateCategoryDTO } from '../../../../dtos/category/update.category.dto';
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detail.category.admin',
   templateUrl: './update.category.admin.component.html',
-  styleUrls: ['./update.category.admin.component.scss']
+  styleUrls: ['./update.category.admin.component.scss'],
+  standalone: true,
+  imports: [   
+    CommonModule,
+    FormsModule,
+  ]
 })
 
 export class UpdateCategoryAdminComponent implements OnInit {

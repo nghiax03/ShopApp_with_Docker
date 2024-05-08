@@ -8,11 +8,21 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderResponse } from '../../responses/order/order.response';
 import { environment } from '../../../environments/environment';
 import { OrderDetail } from '../../models/order.detail';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order.detail.component.html',
-  styleUrls: ['./order.detail.component.scss']
+  styleUrls: ['./order.detail.component.scss'],
+  standalone: true,
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    CommonModule
+  ]
 })
 export class OrderDetailComponent implements OnInit {  
   orderResponse: OrderResponse = {

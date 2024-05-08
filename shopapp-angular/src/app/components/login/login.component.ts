@@ -9,36 +9,40 @@ import { LoginResponse } from '../../responses/user/login.response';
 import { Role } from '../../models/role'; // Đường dẫn đến model Role
 import { UserResponse } from '../../responses/user/user.response';
 import { CartService } from '../../services/cart.service';
+
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    CommonModule,
+    FormsModule
+  ]
 })
 export class LoginComponent implements OnInit{
   @ViewChild('loginForm') loginForm!: NgForm;
 
   /*
-  //Login user1
-  phoneNumber: string = '33445566';
-  password: string = '123456789';
 
-  //Login user2
-  phoneNumber: string = '0964896239';
-  password: string = '123456789';
-
-
-  //Login admin
-  phoneNumber: string = '11223344';
-  password: string = '11223344';
-
-  */
- /*
- phone: 123456
- pass: 12345
- role: admin
- */
+  //Login user
   phoneNumber: string = '12345';
   password: string = '12345';
+
+  //Login admin
+  phoneNumber: string = '123456';
+  password: string = '12345';
+
+  */
+  phoneNumber: string = '33445566';
+  password: string = '123456789';
   showPassword: boolean = false;
 
   roles: Role[] = []; // Mảng roles

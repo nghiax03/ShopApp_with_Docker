@@ -8,11 +8,18 @@ import { CategoryService } from '../../../../services/category.service';
 import { environment } from '../../../../../environments/environment';
 import { ProductImage } from '../../../../models/product.image';
 import { UpdateProductDTO } from '../../../../dtos/product/update.product.dto';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detail.product.admin',
   templateUrl: './update.product.admin.component.html',
-  styleUrls: ['./update.product.admin.component.scss']
+  styleUrls: ['./update.product.admin.component.scss'],
+  standalone: true,
+  imports: [   
+    CommonModule,
+    FormsModule,
+  ]
 })
 
 export class UpdateProductAdminComponent implements OnInit {

@@ -10,10 +10,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Order } from '../../models/order';
 
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  styleUrls: ['./order.component.scss'],
+  standalone: true,
+  imports: [
+    FooterComponent,
+    HeaderComponent,
+    CommonModule,
+    FormsModule,    
+    ReactiveFormsModule,
+  ]
 })
 export class OrderComponent implements OnInit{
   orderForm: FormGroup; // Đối tượng FormGroup để quản lý dữ liệu của form

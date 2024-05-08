@@ -6,8 +6,13 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="class"/>
+		<item key="selection" value="expira"/>
 		<list key="findhistory">
+			<item value="expira"/>
+			<item value="exp"/>
+			<item value="expri"/>
+			<item value="expro"/>
+			<item value="redis"/>
 			<item value="class"/>
 			<item value="actu"/>
 			<item value="acto"/>
@@ -15,14 +20,9 @@
 			<item value="@GetMapping(&quot;/{id}&quot;)"/>
 			<item value="logback"/>
 			<item value="logbac"/>
-			<item value="redis"/>
 			<item value="getall"/>
 			<item value="orders"/>
 			<item value="{id}"/>
-			<item value="get"/>
-			<item value="payment_date"/>
-			<item value="image"/>
-			<item value="getmapp"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

@@ -5,10 +5,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../../services/token.service';
 import { UserResponse } from '../../responses/user/user.response';
 
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';  
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [    
+    CommonModule,
+    NgbModule,
+    RouterModule
+  ]
 })
 export class HeaderComponent implements OnInit{
   userResponse?:UserResponse | null;

@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { inject } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { OrderDTO } from '../../../dtos/order/order.dto';
@@ -13,7 +16,12 @@ import { OrderService } from '../../../services/order.service';
 @Component({
   selector: 'app-detail-order-admin',
   templateUrl: './detail.order.admin.component.html',
-  styleUrls: ['./detail.order.admin.component.scss']
+  styleUrls: ['./detail.order.admin.component.scss'],
+  standalone: true,
+  imports: [   
+    CommonModule,
+    FormsModule,
+  ]
 })
 
 export class DetailOrderAdminComponent implements OnInit{    
@@ -36,8 +44,8 @@ export class DetailOrderAdminComponent implements OnInit{
     order_details: [],
     
   };  
-  constructor(
-    private orderService: OrderService,
+  private orderService = inject(OrderService);
+  constructor(    
     private route: ActivatedRoute,
     private router: Router
     ) {}
@@ -85,27 +93,28 @@ export class DetailOrderAdminComponent implements OnInit{
         this.orderResponse.shipping_method = response.shipping_method;        
         this.orderResponse.status = response.status;     
         debugger   
-      },
+      },      
       complete: () => {
         debugger;        
       },
       error: (error: any) => {
         debugger;
         console.error('Error fetching detail:', error);
-      }
+      },
     });
   }    
   
   saveOrder(): void {    
-    debugger    
+    debugger        
     this.orderService
       .updateOrder(this.orderId, new OrderDTO(this.orderResponse))
       .subscribe({
-      next: (response: any) => {
+      next: (response: Object) => {
         debugger
         // Handle the successful update
-        console.log('Order updated successfully:', response);
+        //console.log('Order updated successfully:', response);
         // Navigate back to the previous page
+        //this.router.navigate(['/admin/orders']);       
         this.router.navigate(['../'], { relativeTo: this.route });
       },
       complete: () => {
@@ -115,6 +124,7 @@ export class DetailOrderAdminComponent implements OnInit{
         // Handle the error
         debugger
         console.error('Error updating order:', error);
+        this.router.navigate(['../'], { relativeTo: this.route });
       }
     });   
   }
