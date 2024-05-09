@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="update"/>
+		<item key="selection" value="You cannot update"/>
 		<list key="findhistory">
+			<item value="You cannot update"/>
 			<item value="update"/>
 			<item value=".stream"/>
 			<item value=".steam"/>
@@ -22,7 +23,6 @@
 			<item value="expro"/>
 			<item value="redis"/>
 			<item value="class"/>
-			<item value="actu"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

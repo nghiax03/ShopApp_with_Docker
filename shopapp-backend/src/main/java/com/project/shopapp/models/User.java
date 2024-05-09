@@ -51,6 +51,9 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "role_id")
     private com.project.shopapp.models.Role role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
